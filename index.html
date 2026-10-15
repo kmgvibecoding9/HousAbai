@@ -1,0 +1,506 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Дом в Астане</title>
+<meta name="description" content="Аналитика и результаты строительства частных домов в Астане и Косшы: калькулятор стоимости, цены, бригады, новости.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600&family=Unbounded:wght@500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#eef3f6; --bg-alt:#e2eaef; --card:#ffffff; --text:#0f2236; --muted:#4a5f72;
+  --line:#cfdbe3; --accent:#0a8a8a; --accent-ink:#ffffff; --accent-soft:#d6eeee;
+  --gold:#b8860b; --gold-soft:#f7ecc9; --warn-bg:#fff3d6; --warn-line:#e0b84a;
+  --shadow:0 1px 2px rgba(15,34,54,.06),0 6px 18px rgba(15,34,54,.06);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0c1824; --bg-alt:#112131; --card:#152a3d; --text:#e8f0f6; --muted:#9db2c3;
+    --line:#26405a; --accent:#2fc4c4; --accent-ink:#06202a; --accent-soft:#12414a;
+    --gold:#e5b84a; --gold-soft:#3a3115; --warn-bg:#3a3115; --warn-line:#8a6d1f;
+    --shadow:none;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0c1824; --bg-alt:#112131; --card:#152a3d; --text:#e8f0f6; --muted:#9db2c3;
+  --line:#26405a; --accent:#2fc4c4; --accent-ink:#06202a; --accent-soft:#12414a;
+  --gold:#e5b84a; --gold-soft:#3a3115; --warn-bg:#3a3115; --warn-line:#8a6d1f;
+  --shadow:none;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:70px}
+body{margin:0;background:var(--bg);color:var(--text);font:400 16px/1.55 Onest,system-ui,sans-serif;overflow-x:hidden}
+h1,h2,h3{font-family:Unbounded,Onest,sans-serif;font-weight:600;line-height:1.2;margin:0}
+h1{font-size:clamp(1.7rem,5vw,2.8rem)}
+h2{font-size:clamp(1.3rem,3.2vw,1.8rem);margin-bottom:.4em}
+h3{font-size:1.05rem;font-weight:500}
+p{margin:.4em 0}
+a{color:var(--accent)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 16px}
+section{padding:56px 0}
+section.alt{background:var(--bg-alt)}
+.lead{color:var(--muted);max-width:680px}
+.demo{background:var(--gold-soft);color:var(--text);font-size:.85rem;text-align:center;padding:6px 16px}
+
+/* header */
+header.top{position:sticky;top:0;z-index:20;background:var(--card);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:12px;min-height:56px}
+.logo{font-family:Unbounded,sans-serif;font-weight:600;font-size:1rem;color:var(--text);text-decoration:none;white-space:nowrap}
+.logo span{color:var(--accent)}
+nav{display:flex;gap:4px;overflow-x:auto;flex:1;scrollbar-width:thin}
+nav a{color:var(--text);text-decoration:none;padding:8px 10px;border-radius:8px;font-size:.9rem;white-space:nowrap}
+nav a:hover{background:var(--accent-soft)}
+.theme{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:8px;padding:8px 12px;cursor:pointer;font:inherit;font-size:.85rem}
+
+/* hero */
+.hero{padding:48px 0 56px;background:linear-gradient(180deg,var(--accent-soft),var(--bg))}
+.hero-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:start}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:24px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+.kpi b{display:block;font:600 1.25rem Unbounded,sans-serif;color:var(--accent)}
+.kpi small{color:var(--muted)}
+.house-art{width:100%;max-width:360px;margin-top:18px}
+
+/* cards & forms */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:20px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+label{display:block;font-size:.85rem;color:var(--muted);margin:14px 0 4px}
+select,input[type=range]{width:100%}
+select{padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--card);color:var(--text);font:inherit}
+input[type=range]{accent-color:var(--accent)}
+.area-val{font-weight:600;color:var(--text)}
+.result{margin-top:18px;padding:16px;border-radius:12px;background:var(--accent);color:var(--accent-ink)}
+.result b{display:block;font:600 1.7rem Unbounded,sans-serif}
+.result span{font-size:.9rem;opacity:.95}
+.note{font-size:.82rem;color:var(--muted);margin-top:10px}
+
+/* tables */
+.tw{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--card)}
+table{border-collapse:collapse;width:100%;min-width:560px;font-size:.92rem}
+th,td{padding:10px 12px;text-align:left;border-bottom:1px solid var(--line)}
+th{background:var(--bg-alt);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.03em;color:var(--muted)}
+tr:last-child td{border-bottom:0}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+.pos{color:#b3261e}.neg{color:#0a7a3c}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .pos{color:#ff8a80}:root:not([data-theme="light"]) .neg{color:#6fdc9a}}
+:root[data-theme="dark"] .pos{color:#ff8a80}:root[data-theme="dark"] .neg{color:#6fdc9a}
+
+/* charts */
+figure{margin:0}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:8px}
+svg text{font-family:Onest,sans-serif;fill:var(--muted);font-size:12px}
+.ax{stroke:var(--line)}
+.ln{stroke:var(--accent);fill:none;stroke-width:3}
+.dot{fill:var(--accent)}
+.bar-f{fill:var(--accent)}.bar-p{fill:var(--gold)}
+.cost-row{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:.9rem}
+.cost-row span:first-child{width:110px;flex:none}
+.cost-track{flex:1;height:14px;background:var(--bg-alt);border-radius:7px;overflow:hidden}
+.cost-fill{height:100%;background:var(--accent);border-radius:7px}
+.cost-row b{width:40px;text-align:right}
+.insight h3{color:var(--accent);margin-bottom:6px}
+
+/* compare */
+.big{font:600 1.5rem Unbounded,sans-serif;color:var(--accent)}
+.tag{display:inline-block;font-size:.75rem;padding:2px 8px;border-radius:99px;background:var(--accent-soft);color:var(--text)}
+.tag.f{background:var(--gold-soft)}
+.warn{background:var(--warn-bg);border:1px solid var(--warn-line);border-radius:12px;padding:14px 16px;margin-top:16px}
+
+/* projects */
+.proj svg{width:100%;height:auto;background:var(--accent-soft);border-radius:10px}
+.proj .price{font:600 1.1rem Unbounded,sans-serif;color:var(--accent);margin-top:8px}
+.meta{color:var(--muted);font-size:.88rem}
+
+/* pricing */
+.plan{display:flex;flex-direction:column}
+.plan.hl{border:2px solid var(--gold)}
+.plan ul{padding-left:18px;margin:10px 0;flex:1}
+.plan .price{font:600 1.2rem Unbounded,sans-serif;color:var(--accent)}
+
+/* crews */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}
+.chip{border:1px solid var(--line);background:var(--card);color:var(--text);border-radius:99px;padding:7px 14px;cursor:pointer;font:inherit;font-size:.88rem}
+.chip[aria-pressed="true"]{background:var(--accent);color:var(--accent-ink);border-color:var(--accent)}
+
+/* news */
+.news-main{grid-column:1/-1}
+.news-main h3{font-size:1.3rem}
+time{color:var(--gold);font-size:.85rem;font-weight:600}
+
+/* social */
+.social a{display:block;text-align:center;text-decoration:none;color:var(--text);font-weight:500}
+.social a:hover{border-color:var(--accent)}
+
+footer{padding:28px 0;color:var(--muted);font-size:.88rem;border-top:1px solid var(--line)}
+
+@media (max-width:900px){
+  .hero-grid,.g2{grid-template-columns:1fr}
+  .g3{grid-template-columns:repeat(2,1fr)}
+  .g4{grid-template-columns:repeat(2,1fr)}
+}
+@media (max-width:560px){
+  section{padding:40px 0}
+  .g3,.g4{grid-template-columns:1fr}
+  .social.g3{grid-template-columns:repeat(2,1fr)}
+  .kpis{grid-template-columns:1fr}
+  .bar{flex-wrap:wrap;padding:6px 0}
+  nav{order:3;flex-basis:100%}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<div class="demo">Демонстрационный прототип: все цифры, названия бригад, проекты и новости придуманы для примера.</div>
+
+<header class="top">
+  <div class="wrap bar">
+    <a class="logo" href="#top">Дом в <span>Астане</span></a>
+    <nav aria-label="Разделы сайта">
+      <a href="#analytics">Аналитика</a>
+      <a href="#compare">Астана и Косшы</a>
+      <a href="#results">Результаты</a>
+      <a href="#projects">Проекты</a>
+      <a href="#prices">Цены</a>
+      <a href="#crews">Бригады</a>
+      <a href="#news">Новости</a>
+      <a href="#social">Соцсети</a>
+    </nav>
+    <button class="theme" id="themeBtn" type="button" aria-label="Переключить тему">Тема</button>
+  </div>
+</header>
+
+<main id="top">
+<!-- 1. Главный экран -->
+<div class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1>Сколько стоит построить дом в Астане</h1>
+      <p class="lead">Аналитика рынка частного строительства, результаты сданных домов и калькулятор стоимости. Сравните Астану и Косшы.</p>
+      <div class="kpis">
+        <div class="kpi"><b>340 тыс. ₸</b><small>цена м² под ключ</small></div>
+        <div class="kpi"><b>−13%</b><small>дешевле в Косшы</small></div>
+        <div class="kpi"><b>2 050</b><small>домов введено в 2025</small></div>
+      </div>
+      <svg class="house-art" viewBox="0 0 360 160" role="img" aria-label="Силуэты частных домов">
+        <rect x="0" y="140" width="360" height="4" fill="var(--line)"/>
+        <path d="M20 140V90l50-40 50 40v50z" fill="var(--accent)"/>
+        <rect x="55" y="105" width="22" height="35" fill="var(--card)"/>
+        <path d="M140 140V80l60-50 60 50v60z" fill="var(--gold)"/>
+        <rect x="170" y="95" width="20" height="20" fill="var(--card)"/><rect x="210" y="95" width="20" height="20" fill="var(--card)"/>
+        <path d="M280 140V95l30-25 30 25v45z" fill="var(--accent)" opacity=".75"/>
+      </svg>
+    </div>
+
+    <div class="card" id="calc">
+      <h2>Калькулятор стоимости</h2>
+      <label for="area">Площадь: <span class="area-val" id="areaVal">150 м²</span></label>
+      <input id="area" type="range" min="60" max="500" step="10" value="150">
+      <label for="floors">Этажность</label>
+      <select id="floors">
+        <option value="1.08">1 этаж</option>
+        <option value="1.00" selected>2 этажа</option>
+        <option value="1.04">С мансардой</option>
+      </select>
+      <label for="city">Город</label>
+      <select id="city">
+        <option value="1.00" selected>Астана</option>
+        <option value="0.87">Косшы</option>
+      </select>
+      <label for="mat">Материал стен</label>
+      <select id="mat">
+        <option value="1.00" selected>Газоблок</option>
+        <option value="1.15">Кирпич</option>
+        <option value="0.90">СИП-панели</option>
+        <option value="0.85">Каркас</option>
+      </select>
+      <label for="pack">Комплектация</label>
+      <select id="pack">
+        <option value="190">Коробка</option>
+        <option value="260">Черновая</option>
+        <option value="340" selected>Под ключ</option>
+        <option value="480">Премиум</option>
+      </select>
+      <div class="result" aria-live="polite">
+        <span>Ориентировочная стоимость</span>
+        <b id="total">—</b>
+        <span id="range"></span>
+      </div>
+      <p class="note">Расчёт ориентировочный. Не включает участок и подключение сетей.</p>
+    </div>
+  </div>
+</div>
+
+<!-- 2. Аналитика -->
+<section id="analytics">
+  <div class="wrap">
+    <h2>Аналитика рынка</h2>
+    <p class="lead">Как менялись цены и объёмы строительства частных домов в Астане.</p>
+    <div class="grid g2" style="margin-top:20px">
+      <figure class="card">
+        <h3>Цена м² под ключ, тыс. ₸</h3>
+        <svg id="lineChart" viewBox="0 0 480 240" role="img" aria-labelledby="lc-cap" width="100%"></svg>
+        <figcaption id="lc-cap">Цена за м² под ключ выросла с 215 тыс. ₸ в 2021 году до 340 тыс. ₸ в 2026 году.</figcaption>
+      </figure>
+      <figure class="card">
+        <h3>Введено домов по годам</h3>
+        <svg id="barChart" viewBox="0 0 480 240" role="img" aria-labelledby="bc-cap" width="100%"></svg>
+        <figcaption id="bc-cap">Число введённых домов растёт каждый год; 2026 — прогноз (жёлтый столбец).</figcaption>
+      </figure>
+    </div>
+    <div class="card" style="margin-top:16px">
+      <h3>Структура затрат на дом, %</h3>
+      <div id="costs" style="margin-top:8px"></div>
+    </div>
+    <div class="grid g3" style="margin-top:16px">
+      <div class="card insight"><h3>Рост цен замедляется</h3><p>В 2022–2023 годах цена росла на 15–16% в год, в 2026 году прогноз — около 2%. Рынок стабилизируется.</p></div>
+      <div class="card insight"><h3>Зима влияет на сроки</h3><p>При морозах ниже −25 °C бетонные и кровельные работы дорожают и задерживаются. Старт весной экономит до 8% сметы.</p></div>
+      <div class="card insight"><h3>Материалы для мороза</h3><p>Газоблок и кирпич надёжнее держат тепло, СИП и каркас строятся быстрее и дешевле, но требуют качественной сборки.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Сравнение -->
+<section id="compare" class="alt">
+  <div class="wrap">
+    <h2>Астана и Косшы</h2>
+    <p class="lead">Где строить выгоднее: в столице или в соседнем городе.</p>
+    <div class="grid g3" style="margin-top:20px">
+      <div class="card"><div class="meta">Цена м² под ключ</div><div class="big">340 / 296</div><small class="meta">тыс. ₸, Астана / Косшы</small></div>
+      <div class="card"><div class="meta">Участок 10 соток</div><div class="big">12,5 / 7,8</div><small class="meta">млн ₸</small></div>
+      <div class="card"><div class="meta">Дом 150 м² под ключ</div><div class="big">51,0 / 44,4</div><small class="meta">млн ₸</small></div>
+    </div>
+    <div class="grid g2" style="margin-top:16px">
+      <figure class="card">
+        <h3>Цена м² под ключ, тыс. ₸</h3>
+        <svg id="cmpChart" viewBox="0 0 480 200" role="img" aria-labelledby="cm-cap" width="100%"></svg>
+        <figcaption id="cm-cap">Косшы дешевле Астаны на 13% по цене строительства за м².</figcaption>
+      </figure>
+      <div class="tw">
+        <table>
+          <thead><tr><th>Параметр</th><th>Астана</th><th>Косшы</th></tr></thead>
+          <tbody>
+            <tr><td>Цена м² под ключ</td><td>340 тыс. ₸</td><td>296 тыс. ₸</td></tr>
+            <tr><td>Участок 10 соток</td><td>12,5 млн ₸</td><td>7,8 млн ₸</td></tr>
+            <tr><td>Дом 150 м² под ключ</td><td>51,0 млн ₸</td><td>44,4 млн ₸</td></tr>
+            <tr><td>Срок строительства</td><td>8–10 мес.</td><td>9–12 мес.</td></tr>
+            <tr><td>Введено домов (2025)</td><td>2 050</td><td>640</td></tr>
+            <tr><td>Дорога до центра</td><td>10–25 мин</td><td>30–45 мин</td></tr>
+            <tr><td>Подключение сетей</td><td>3–5 млн ₸</td><td>4–7 млн ₸</td></tr>
+            <tr><td>Доступность бригад</td><td>Высокая</td><td>Средняя</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="warn"><b>Важно:</b> экономия в Косшы уменьшается из-за дороги, доставки материалов и более высокой стоимости подключения сетей. Считайте итоговый бюджет целиком.</div>
+  </div>
+</section>
+
+<!-- 4. Результаты -->
+<section id="results">
+  <div class="wrap">
+    <h2>Результаты: сданные дома</h2>
+    <p class="lead">Сравнение сметы и фактических затрат по завершённым объектам.</p>
+    <div class="tw" style="margin-top:20px">
+      <table>
+        <thead><tr><th>Район</th><th>Материал</th><th class="num">Площадь, м²</th><th class="num">Срок, мес.</th><th class="num">Смета, млн ₸</th><th class="num">Факт, млн ₸</th><th class="num">Отклонение</th></tr></thead>
+        <tbody id="resBody"></tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Проекты -->
+<section id="projects" class="alt">
+  <div class="wrap">
+    <h2>Новые проекты</h2>
+    <p class="lead">Типовые проекты домов, адаптированные под климат Астаны.</p>
+    <div class="grid g3" id="projGrid" style="margin-top:20px"></div>
+  </div>
+</section>
+
+<!-- 6. Цены -->
+<section id="prices">
+  <div class="wrap">
+    <h2>Цены и комплектации</h2>
+    <p class="lead">Цена за м² для газоблочного дома в Астане, 2 этажа.</p>
+    <div class="grid g4" style="margin-top:20px">
+      <div class="card plan"><h3>Коробка</h3><div class="price">190 тыс. ₸/м²</div>
+        <ul><li>Фундамент и стены</li><li>Перекрытия и кровля</li><li>Окна и входная дверь</li></ul></div>
+      <div class="card plan"><h3>Черновая</h3><div class="price">260 тыс. ₸/м²</div>
+        <ul><li>Всё из «Коробки»</li><li>Электрика и водопровод</li><li>Отопление и стяжка</li></ul></div>
+      <div class="card plan hl"><h3>Под ключ</h3><div class="price">340 тыс. ₸/м²</div>
+        <ul><li>Всё из «Черновой»</li><li>Чистовая отделка</li><li>Сантехника и двери</li></ul><span class="tag f">Самый частый выбор</span></div>
+      <div class="card plan"><h3>Премиум</h3><div class="price">480 тыс. ₸/м²</div>
+        <ul><li>Всё из «Под ключ»</li><li>Премиальные материалы</li><li>Умный дом и ландшафт</li></ul></div>
+    </div>
+    <p class="note">Для Косшы цена ниже на 13%, для кирпича выше на 15%.</p>
+  </div>
+</section>
+
+<!-- 7. Бригады -->
+<section id="crews" class="alt">
+  <div class="wrap">
+    <h2>Строительные бригады</h2>
+    <p class="lead">Местные и иностранные команды. Цена указана за работы без материалов.</p>
+    <div class="filters" role="group" aria-label="Фильтр по стране" id="filters"></div>
+    <div class="grid g3" id="crewGrid"></div>
+    <div class="warn" id="foreignNote" hidden>
+      <b>Памятка по иностранным бригадам:</b>
+      <ul style="margin:6px 0 0;padding-left:18px">
+        <li>проверьте разрешение на работу у каждого рабочего;</li>
+        <li>заключайте договор на русском языке;</li>
+        <li>требуйте письменную гарантию на работы;</li>
+        <li>аванс — не более 30% суммы.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Новости -->
+<section id="news">
+  <div class="wrap">
+    <h2>Новости рынка</h2>
+    <div class="grid g3" id="newsGrid" style="margin-top:20px"></div>
+  </div>
+</section>
+
+<!-- 9. Соцсети -->
+<section id="social" class="alt">
+  <div class="wrap">
+    <h2>Мы в соцсетях</h2>
+    <p class="lead">Следите за ходом строительства и новыми проектами.</p>
+    <div class="grid g3 social" id="socGrid" style="margin-top:20px"></div>
+    <p class="note">Адреса аккаунтов подставляет владелец сайта.</p>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">© 2026 Дом в Астане. Демонстрационные данные. Расчёты ориентировочные и не являются офертой.</div>
+</footer>
+
+<script>
+(function(){
+  var $=function(id){return document.getElementById(id)};
+  var fmt=function(n,d){return n.toLocaleString('ru-RU',{minimumFractionDigits:d||0,maximumFractionDigits:d||0})};
+  var esc=function(s){return String(s).replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]})};
+
+  /* theme */
+  var root=document.documentElement;
+  function isDark(){var t=root.getAttribute('data-theme');return t?t==='dark':matchMedia('(prefers-color-scheme: dark)').matches}
+  function setBtn(){$('themeBtn').textContent=isDark()?'Светлая':'Тёмная'}
+  $('themeBtn').addEventListener('click',function(){root.setAttribute('data-theme',isDark()?'light':'dark');setBtn()});
+  setBtn();
+
+  /* calculator */
+  function calc(){
+    var a=+$('area').value;
+    $('areaVal').textContent=a+' м²';
+    var p=a*(+$('pack').value)*(+$('mat').value)*(+$('floors').value)*(+$('city').value)/1000; // млн ₸
+    $('total').textContent=fmt(p,1)+' млн ₸';
+    $('range').textContent='Диапазон: '+fmt(p*0.9,1)+' – '+fmt(p*1.1,1)+' млн ₸';
+  }
+  ['area','floors','city','mat','pack'].forEach(function(id){$(id).addEventListener('input',calc)});
+  calc();
+
+  /* charts */
+  var NS='http://www.w3.org/2000/svg';
+  function line(){
+    var d=[[2021,215],[2022,245],[2023,285],[2024,318],[2025,334],[2026,340]];
+    var W=480,H=240,l=44,r=16,t=16,b=30,min=180,max=360;
+    var x=function(i){return l+i*(W-l-r)/(d.length-1)};
+    var y=function(v){return t+(max-v)*(H-t-b)/(max-min)};
+    var s='';
+    [180,240,300,360].forEach(function(v){s+='<line class="ax" x1="'+l+'" x2="'+(W-r)+'" y1="'+y(v)+'" y2="'+y(v)+'"/><text x="'+(l-6)+'" y="'+(y(v)+4)+'" text-anchor="end">'+v+'</text>'});
+    s+='<polyline class="ln" points="'+d.map(function(p,i){return x(i)+','+y(p[1])}).join(' ')+'"/>';
+    d.forEach(function(p,i){s+='<circle class="dot" cx="'+x(i)+'" cy="'+y(p[1])+'" r="4"/><text x="'+x(i)+'" y="'+(H-10)+'" text-anchor="middle">'+p[0]+'</text><text x="'+x(i)+'" y="'+(y(p[1])-10)+'" text-anchor="middle" style="fill:var(--text)">'+p[1]+'</text>'});
+    $('lineChart').innerHTML=s;
+  }
+  function bars(){
+    var d=[[2021,1180],[2022,1420],[2023,1650],[2024,1890],[2025,2050],[2026,2200]];
+    var W=480,H=240,l=16,r=16,t=24,b=30,max=2400,bw=48;
+    var step=(W-l-r)/d.length,s='<line class="ax" x1="'+l+'" x2="'+(W-r)+'" y1="'+(H-b)+'" y2="'+(H-b)+'"/>';
+    d.forEach(function(p,i){
+      var h=p[1]/max*(H-t-b),x=l+i*step+(step-bw)/2,y=H-b-h,f=i===5;
+      s+='<rect class="'+(f?'bar-p':'bar-f')+'" x="'+x+'" y="'+y+'" width="'+bw+'" height="'+h+'" rx="4"/>'
+        +'<text x="'+(x+bw/2)+'" y="'+(y-6)+'" text-anchor="middle" style="fill:var(--text)">'+fmt(p[1])+'</text>'
+        +'<text x="'+(x+bw/2)+'" y="'+(H-10)+'" text-anchor="middle">'+p[0]+(f?' (прогноз)':'')+'</text>';
+    });
+    $('barChart').innerHTML=s;
+  }
+  function cmp(){
+    var d=[['Астана',340,'bar-f'],['Косшы',296,'bar-p']],W=480,H=200,l=70,max=400,s='';
+    d.forEach(function(p,i){
+      var y=30+i*70,w=p[1]/max*(W-l-60);
+      s+='<text x="'+(l-8)+'" y="'+(y+24)+'" text-anchor="end" style="fill:var(--text)">'+p[0]+'</text><rect class="'+p[2]+'" x="'+l+'" y="'+y+'" width="'+w+'" height="36" rx="5"/><text x="'+(l+w+8)+'" y="'+(y+24)+'" style="fill:var(--text)">'+p[1]+'</text>';
+    });
+    $('cmpChart').innerHTML=s;
+  }
+  line();bars();cmp();
+
+  /* costs */
+  var costs=[['Фундамент',14],['Стены',24],['Кровля и окна',17],['Инженерия',19],['Отделка',21],['Прочее',5]];
+  $('costs').innerHTML=costs.map(function(c){return '<div class="cost-row"><span>'+c[0]+'</span><div class="cost-track"><div class="cost-fill" style="width:'+c[1]*3.6+'%"></div></div><b>'+c[1]+'%</b></div>'}).join('');
+
+  /* results */
+  var res=[['Есиль','Газоблок',180,9,60.0,62.4],['Сарыарка','Кирпич',220,11,84.5,88.1],['Косшы, центр','СИП-панели',140,6,38.2,37.5],['Алматинский','Каркас',120,5,30.6,31.0],['Нура','Газоблок',260,12,88.4,93.0],['Косшы, северный','Газоблок',160,9,45.0,44.1]];
+  $('resBody').innerHTML=res.map(function(r){
+    var dv=(r[5]-r[4])/r[4]*100,c=dv>0?'pos':'neg';
+    return '<tr><td>'+r[0]+'</td><td>'+r[1]+'</td><td class="num">'+r[2]+'</td><td class="num">'+r[3]+'</td><td class="num">'+fmt(r[4],1)+'</td><td class="num">'+fmt(r[5],1)+'</td><td class="num '+c+'">'+(dv>0?'+':'−')+fmt(Math.abs(dv),1)+'%</td></tr>';
+  }).join('');
+
+  /* projects */
+  var projs=[['Берёзка',120,'Газоблок','1 этаж, 3 спальни, гараж',40.8],['Байтерек',180,'Кирпич','2 этажа, 4 спальни, терраса',70.4],['Степь',150,'СИП-панели','С мансардой, 3 спальни',45.9],['Нордик',95,'Каркас','1 этаж, 2 спальни, веранда',27.5],['Ак Орда',240,'Газоблок','2 этажа, 5 спален, сауна',81.6],['Тулпар',200,'Кирпич','2 этажа, 4 спальни, кабинет',78.2]];
+  $('projGrid').innerHTML=projs.map(function(p,i){
+    var c=i%2?'var(--gold)':'var(--accent)';
+    return '<article class="card proj"><svg viewBox="0 0 200 110" role="img" aria-label="Силуэт дома '+esc(p[0])+'"><path d="M30 95V55l70-38 70 38v40z" fill="'+c+'"/><rect x="88" y="65" width="24" height="30" fill="var(--card)"/><rect x="50" y="62" width="20" height="18" fill="var(--card)"/><rect x="130" y="62" width="20" height="18" fill="var(--card)"/></svg><h3 style="margin-top:12px">'+esc(p[0])+'</h3><p class="meta">'+p[1]+' м² · '+p[2]+'</p><p class="meta">'+esc(p[3])+'</p><div class="price">от '+fmt(p[4],1)+' млн ₸</div></article>';
+  }).join('');
+
+  /* crews */
+  var crews=[
+    ['СтройАстана','Казахстан','Монолит, газоблок','12 человек','9 лет',9,'Свой склад материалов'],
+    ['Степной дом','Казахстан','Каркас, СИП','8 человек','6 лет',8,'Быстрая сборка до 5 недель'],
+    ['Самарканд Билдинг','Узбекистан','Кирпичная кладка','15 человек','11 лет',7,'Нужно оформление разрешений'],
+    ['Анатолия Йапы','Турция','Отделка, премиум','10 человек','14 лет',14,'Работают по проектам с дизайнером'],
+    ['Ляньсин','Китай','Каркас, металлоконструкции','20 человек','8 лет',8,'Собственные материалы, договор через переводчика'],
+    ['Волга-Строй','Россия','Деревянные и каркасные дома','9 человек','10 лет',11,'Опыт строительства в мороз'],
+    ['Белстрой','Беларусь','Кровля, инженерия','7 человек','12 лет',10,'Гарантия 5 лет на кровлю']
+  ];
+  var countries=['Все','Казахстан','Узбекистан','Турция','Китай','Россия','Беларусь'],cur='Все';
+  function drawCrews(){
+    $('filters').innerHTML=countries.map(function(c){return '<button class="chip" type="button" aria-pressed="'+(c===cur)+'" data-c="'+c+'">'+c+'</button>'}).join('');
+    var list=crews.filter(function(c){return cur==='Все'||c[1]===cur});
+    $('crewGrid').innerHTML=list.map(function(c){
+      var f=c[1]!=='Казахстан';
+      return '<article class="card"><span class="tag'+(f?' f':'')+'">'+c[1]+(f?' · иностранная':'')+'</span><h3 style="margin-top:8px">'+esc(c[0])+'</h3><p class="meta">'+esc(c[2])+'</p><p class="meta">'+c[3]+' · опыт '+c[4]+'</p><p><b>'+c[5]*10+' тыс. ₸/м²</b> <span class="meta">за работы</span></p><p class="meta">'+esc(c[6])+'</p></article>';
+    }).join('');
+    $('foreignNote').hidden=!(cur==='Все'||cur!=='Казахстан');
+  }
+  $('filters').addEventListener('click',function(e){var b=e.target.closest('button');if(!b)return;cur=b.getAttribute('data-c');drawCrews()});
+  drawCrews();
+  /* цены работ: подставляем реалистичные значения */
+
+  /* news */
+  var news=[
+    ['12 октября 2026','Цены на частное строительство в Астане выросли на 2% за год','Рост цены за м² под ключ заметно замедлился по сравнению с 2022–2023 годами. Эксперты связывают это с насыщением рынка бригад и стабилизацией цен на газоблок и кирпич. До конца года ожидается небольшой прирост из-за зимнего удорожания работ.'],
+    ['5 октября 2026','В Косшы упростили выдачу разрешений на ИЖС','Срок согласования проекта сократился до 10 рабочих дней.'],
+    ['28 сентября 2026','Какие бригады работают зимой','Разбор технологий бетонирования при низких температурах.'],
+    ['15 сентября 2026','Рынок СИП-панелей: что изменилось','Цены на панели остались прежними, сроки поставки сократились.']
+  ];
+  $('newsGrid').innerHTML=news.map(function(n,i){
+    return '<article class="card'+(i===0?' news-main':'')+'"><time>'+n[0]+'</time><h3 style="margin:6px 0">'+esc(n[1])+'</h3><p class="meta">'+esc(n[2])+'</p></article>';
+  }).join('');
+
+  /* social */
+  var soc=['Instagram','Telegram','WhatsApp','YouTube','TikTok','Facebook'];
+  $('socGrid').innerHTML=soc.map(function(s){return '<a class="card" href="#" target="_blank" rel="noopener noreferrer">'+s+'</a>'}).join('');
+})();
+</script>
+</body>
+</html>
